@@ -3,9 +3,6 @@
 {% block  title%}Home{% endblock  %}
 {% block content%}
 <style type="text/css">
-.wrapper {
-	margin-top: 80px;
-}
 
 .form-signin {
 	max-width: 380px;
@@ -44,7 +41,6 @@
 }
 
 </style>
-<div class="wrapper">
     <form class="form-signin" method="POST">
         {% csrf_token %}
         <h2 class="form-signin-heading">Login</h2>
@@ -57,5 +53,4 @@
         <button class="btn btn-lg btn-primary btn-block" type="submit" name="login">Login</button>  
 
     </form>
-</div>
 {% endblock  %}
