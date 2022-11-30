@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block  title%}History{% endblock  %}
+
+{% block content%}
+<style type="text/css">
+.wrapper {
+	margin-top: 80px;
+}
+</style>
+<div class="wrapper container">
+ <table class="table">
+    <thead>
+      <tr>
+        <th>Text</th>
+        <th>Date/Time</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for history in Histories %}
+      <tr>
+        <td>{{history.body|safe}}</td>
+        <td class="nowrap">{{history.date}}</td>
+      </tr>
+      {% endfor %}
+
+    </tbody>
+  </table>
+
+<br>
+{% if page_obj.has_previous %}
+    <a href="{{request.path}}?page={{page_obj.previous_page_number}}">Back</a>
+{% endif %}
+{% if page_obj.has_next %}
+    <a href="{{request.path}}?page={{page_obj.next_page_number}}">Next</a>
+{% endif %}
+</div>
+{% endblock  %}

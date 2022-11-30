@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block  title%}Home{% endblock  %}
+{% block content%}
+<style type="text/css">
+.wrapper {
+	margin-top: 80px;
+}
+
+.selected-image {
+    height: 400px;
+    width: 500px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    padding: 10px 5px;
+}
+.result-text-area {
+    overflow-y: scroll;
+    border: 1px solid gray;
+    border-radius: 5px;
+    width: 500px;
+    height: 400px;
+    padding: 20px;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+</style>
+<div class="wrapper container" >
+    <form method="post" enctype='multipart/form-data'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="row mb-3">
+            <div class="col-lg-6">
+                <div class="selected-image">
+                    {% if image %}
+                        <img src="{{ image }}" alt="img1"  width="100%">
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="result-text-area"> 
+                    {{text|safe}}
+                </div>
+                <input  class="btn btn-lg btn-primary" type="submit" value="GetText">
+
+            </div>
+        </div>
+
+    </form>
+
+</div>
+{% endblock  %}

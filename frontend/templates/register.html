@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block  title%}Home{% endblock  %}
+{% block content%}
+<style type="text/css">
+.wrapper {
+	margin-top: 80px;
+}
+
+.form-signin {
+	max-width: 380px;
+	padding: 15px 35px 45px;
+	margin: 0 auto;
+	background-color: #fff;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+	margin-bottom: 30px;
+}
+
+.form-signin .checkbox {
+	font-weight: normal;
+}
+
+.form-signin .form-control {
+	position: relative;
+	font-size: 16px;
+	height: auto;
+	padding: 10px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.form-signin .form-control:focus {
+	z-index: 2;
+}
+
+.form-signin input {
+    margin-bottom: 10px;
+	border-radius: 1rem;
+}
+
+</style>
+<div class="wrapper">
+    <form class="form-signin" method="POST">
+        {% csrf_token %}
+        <h2 class="form-signin-heading">Register</h2>
+        <input type="email" class="form-control" name="email"  value="{{form.initial.email}}" placeholder="Email" required="" autofocus="" />
+        <input type="text" class="form-control" name="username"  value="{{form.initial.username}}" placeholder="Username" required="" autofocus="" />
+        <input type="password" class="form-control" name="password1" value="{{form.initial.password1}}" placeholder="Password" required=""/>      
+        <input type="password" class="form-control" name="password2" value="{{form.initial.password2}}" placeholder="Confirm Password" required=""/>      
+        {% for key, value in form.errors.items %} 
+            <p style="color: red;">{{value}}</p>
+        {% endfor %}
+        <input type="hidden" name="next" value="/" />
+        <button class="btn btn-lg btn-primary btn-block" type="submit" name="register">Register</button>  
+
+    </form>
+</div>
+{% endblock  %}

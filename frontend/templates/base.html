@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+		{% load static %}
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+		<title>{% block  title%}{% endblock  %}</title>
+</head>
+<style>
+.navbar a {
+  color: white;
+}
+</style>
+<body>
+<!-- Fixed navbar -->
+    <nav class="navbar navbar-dark bg-primary navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">PBL6</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/">Home</a></li>
+						{% if user.username %}
+							<li><a href="{% url 'history' %}">History</a></li>
+			      {% else %}
+			        <li><a href="{% url 'login' %}">History</a></li>
+			      {% endif %}
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+			      {% if user.username %}
+				      <li><p style="padding-top: 15px">Hello, {{user.username}}<p></li>
+					    <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+			      {% else %}
+			        <li><a href="{% url 'register' %}"><span class="glyphicon glyphicon-user"></span> Register</a></li>
+			        <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+			      {% endif %}
+		      </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+{% block content%}
+{% endblock  %}
+<script>
+$(".navbar a").on("click", function(){
+      $(".navbar").find(".active").removeClass("active");
+      $(this).parent().addClass("active");
+    });
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>
