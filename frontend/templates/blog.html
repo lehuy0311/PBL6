@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block  title%}Blog{% endblock  %}
+
+{% block content%}
+<div class="row">
+<div class="list-group col-4">
+    <a class="list-group-item" href="{% url 'blog'  %}">All</a>
+{% for item in cat_menu %}
+    <a class="list-group-item" href="{% url 'category' item %}">{{item}}</a>
+{% endfor %}
+</div>
+<div class="list-group col-8">
+    {% if user.is_authenticated %}
+        <a href="{% url 'add_post' %}" class="btn btn-primary">+ Add Post</a>  
+    {% endif %}
+{% for post in Posts %}
+    <li class="list-group-item my-2">
+        <a href="{% url 'post' post.pk %}" class="text-decoration-none h3 text-black"> {{post.title}}</a>
+        <br/>
+        {{post.author}} - {{post.date}} -
+        {% if user.is_authenticated %}
+        {% if user.id == post.author.id %}
+            <a href="{% url 'update_post' post.pk %}"><i class="bi bi-pencil-fill"></i></a> 
+            <a href="{% url 'delete_post' post.pk %}"><i class="bi bi-trash-fill"></i></a>  
+        {% endif %}
+        {% endif %}
+       
+        </br>
+    {{post.body|slice:":200"|safe}}</li>
+{% endfor %}
+
+<br>
+{% if page_obj.has_previous %}
+    <a href="{{request.path}}?page={{page_obj.previous_page_number}}">Back</a>
+{% endif %}
+{% if page_obj.has_next %}
+    <a href="{{request.path}}?page={{page_obj.next_page_number}}">Next</a>
+{% endif %}
+</div>
+{% endblock  %}

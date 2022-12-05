@@ -1,56 +1,83 @@
 from django import forms
 import re
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm,PasswordChangeForm
 from django.core.exceptions import ObjectDoesNotExist
-from .models import History
+from .models import Post, Category, Comment
 
-
-class RegistrationForm(forms.Form):
-    username = forms.CharField(label='Username', max_length=30)
-    email = forms.EmailField(label='Email')
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput())
-    password2 = forms.CharField(
-        label='Confirm password', widget=forms.PasswordInput())
-
-    def clean_password2(self):
-        if 'password1' in self.cleaned_data:
-            password1 = self.cleaned_data['password1']
-            password2 = self.cleaned_data['password2']
-            if password1 == password2 and password2:
-                return password2
-        raise forms.ValidationError("Invalid password")
-
-    def clean_username(self):
-        username = self.cleaned_data['username']
-        if not re.search(r'^\w+$', username):
-            raise forms.ValidationError("Username contains special characters")
-
-        try:
-            User.objects.get(username=username)
-        except ObjectDoesNotExist:
-            return username
-        raise forms.ValidationError("Username already exists")
-
-    def save(self):
-        User.objects.create_user(
-            username=self.cleaned_data['username'], email=self.cleaned_data['email'], password=self.cleaned_data['password1'])
-
-
-class HistoryForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(self, *args, *kwargs)
+class SignUpForm(UserCreationForm):
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class' : 'form-control'}))
+    first_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class' : 'form-control'}))
+    last_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class' : 'form-control'}))
 
     class Meta:
-        model = History
-        fields = ['body']
+        model = User
+        fields = ('username', 'first_name','last_name', 'email','password1','password2')
+    
+    def __init__(self, *args, **kwargs):
+        super(SignUpForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs['class'] = 'form-control'
+        self.fields['password1'].widget.attrs['class'] = 'form-control'
+        self.fields['password2'].widget.attrs['class'] = 'form-control'
 
 
-class UploadForm(forms.Form):
-    file = forms.FileField(widget=forms.FileInput(attrs={
-        'id': 'file_id'
-    }))
+
+class EditProfileForm(UserChangeForm):
+
+    class Meta:
+        model = User
+        fields = ["username", "email", "first_name", "last_name"]
+        widgets = {
+            "username": forms.TextInput(attrs={"class": "form-control"}),
+            "first_name": forms.TextInput(attrs={"class": "form-control"}),
+            "last_name": forms.TextInput(attrs={"class": "form-control"}),
+            "email": forms.TextInput(attrs={"class": "form-control"}),
+        }
+
+class PasswordChangingForm(PasswordChangeForm):
+    old_password = forms.CharField(widget=forms.PasswordInput(attrs={"class": "form-control", "type":"password"}))
+    new_password1 = forms.CharField(widget=forms.PasswordInput(attrs={"class": "form-control", "type":"password"}))
+    new_password2 = forms.CharField(widget=forms.PasswordInput(attrs={"class": "form-control", "type":"password"}))
+    class Meta:
+        model = User
+        fields = ["old_password", "new_password1", "new_passwod2"]
 
 
 class uploadform(forms.Form):
     image = forms.ImageField()
     text = forms.Textarea()
+
+choices = list(Category.objects.all().values_list('name', 'name'))
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields=('title', 'author', 'category','body')
+        widgets = {
+            'title': forms.TextInput(attrs={'class' : 'form-control'}),
+            'author': forms.TextInput(attrs={'class' : 'form-control', 'id':'name','type':'hidden'}),
+            'category': forms.Select(choices=choices,attrs={'class' : 'form-control'}),
+            'body': forms.Textarea(attrs={'class' : 'form-control'}),
+        }
+
+class CommentForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs) :
+        self.author = kwargs.pop('author', None)
+        self.post = kwargs.pop('post', None)
+        self.body = kwargs.pop('body', None)
+        super().__init__(*args, **kwargs)
+    def save(self, commit=True):
+        comment = super().save(commit=False)
+        comment.body = self.body
+        comment.author = self.author
+        comment.post = self.post
+        comment.save()
+    class Meta:
+        model = Comment
+        fields = ['body']
+        widgets = {
+            'body': forms.Textarea(attrs={'class' : 'form-control'}),
+        }
+
+        
+

@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block  title%}{{post.title}}{% endblock  %}
+
+{% block content%}
+<div class="row">
+<div class="list-group col-4">
+    <a class="list-group-item" href="{% url 'blog'  %}">All</a>
+{% for item in cat_menu %}
+    <a class="list-group-item" href="{% url 'category' item %}">{{item}}</a>
+{% endfor %}
+</div>
+<div class="col-8">
+<h1>{{post.title}}</h1>
+<small>
+    {% if post.author.profile.profile_pic.url %}
+      <img src="{{post.author.profile.profile_pic.url}}" class="img-fluid rounded-start" width=50 alt="">
+    {% else %}
+      <img src="{% static 'images/default-avatar.png' %}" class="img-fluid rounded-start" width=50 alt="">
+    {% endif %}
+    <a href="{% url 'show_profile_page' post.author.profile.id %}">{{post.author.first_name}}{{post.author.last_name}}</a> - {{post.date}} - 
+    {% if user.is_authenticated %}
+    {% if user.id == post.author.id %}
+        <a href="{% url 'update_post' post.pk %}"><i class="bi bi-pencil-fill"></i></a> 
+        <a href="{% url 'delete_post' post.pk %}"><i class="bi bi-trash-fill"></i></a> 
+    {% endif %}
+    {% endif %}
+</small>
+
+<br/><hr/>
+{{post.body|safe}}
+<br/><hr/>
+
+
+<form action="{% url 'like_post' post.pk %}" method="POST">
+    {% csrf_token %}
+    {% if user.is_authenticated %}
+        {% if liked %}
+            <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-danger btn-sm">
+        {% else %} 
+            <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-secondary btn-sm">
+        {% endif %}
+                <i class="bi bi-heart-fill"></i>
+            </button>
+    {% else %}
+        <small><a href="{% url 'login' %}">Login</a> to like </small>
+    {% endif %}
+         {{total_likes}} Likes
+
+</form>
+
+<br/> <br/>
+<br/>
+<br/>
+<h2>Leave your comment!</h2>
+<div id="comments_section">
+  {% if comments %}
+  <strong class="text-secondary">{{ object.number_of_comments }} Comment{{ object.number_of_comments|pluralize }}</strong>
+  <hr>
+  <ul class="list-group">
+    {% for comment in comments %}
+    <li class="list-group-item">           
+     <div>
+        <span>
+          <strong class="text-info">{{ comment.author }} </strong>
+          <small class="text-muted">{{ comment.date }}</small>
+        </span>
+        <p>
+          {{ comment.body|safe }}
+        </p>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <strong class="text-secondary">No comments yet...</strong>
+  {% endif %}
+  <br/>
+  {% if user.is_authenticated %}
+  <form action="{% url 'post' post.id %}" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+      <p><label>Comment: </label></p>
+      {{ comment_form.body }}
+      <br/>
+      <button class="btn btn-info" type="submit">Add comment <i class="fas fa-comments"></i></button>
+    </div>
+  </form>
+  {% else %}
+  <a class="btn btn-outline-info" href="{% url 'login' %}?next={{request.path}}">Log in to add a comment!</a><br>
+  {% endif %}
+</div>
+</div>
+
+{% endblock  %}

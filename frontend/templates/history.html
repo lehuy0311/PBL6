@@ -3,7 +3,7 @@
 {% block  title%}History{% endblock  %}
 
 {% block content%}
-
+{% if user.is_authenticated %}
  <table class="table">
     <thead>
       <tr>
@@ -29,5 +29,5 @@
 {% if page_obj.has_next %}
     <a href="{{request.path}}?page={{page_obj.next_page_number}}">Next</a>
 {% endif %}
-</div>
+{% endif %}
 {% endblock  %}

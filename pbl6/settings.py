@@ -26,8 +26,8 @@ SECRET_KEY = 'django-insecure-!u!xg$@)gds^2*#44)w%%t)(c)z!*h)iok6^qo8od4d=p9le6n
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ["localhost"]
+CSRF_TRUSTED_ORIGINS = ['http://*', 'https://*', 'https://linh2001ht-studious-space-garbanzo-g5v76rj6r69cw979-8000.preview.app.github.dev']
 
 # Application definition
 
@@ -38,14 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'frontend'
+    'frontend',
+    'ckeditor'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+   # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -121,11 +122,14 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'statics'),
-# ]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL='home'
+LOGOUT_REDIRECT_URL='home'
