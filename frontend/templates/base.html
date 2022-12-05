@@ -20,22 +20,32 @@
 
 </style>
 <body class="d-flex flex-column h-100">
-  <header class="p-3 bg-primary text-white">
+  <header class="p-2 bg-primary text-white">
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+        <a href="{% url 'home' %}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
           PBL6
         </a>
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="/" class="nav-link px-2 text-white">Home</a></li>
-          <li><a href="{% if user.username %}{% url 'history' %}{% else %}{% url 'login' %}{% endif %}" class="nav-link px-2 text-white">History</a></li>
+          <li><a href="{% url 'home' %}" class="nav-link px-2 text-white">Home</a></li>
+          <li><a href="{% if user.is_authenticated %}{% url 'history' %}{% else %}{% url 'login' %}{% endif %}" class="nav-link px-2 text-white">History</a></li>
+          <li><a href="{% url 'blog' %}" class="nav-link px-2 text-white">Blog</a></li>
         </ul>
 
 
-        <ul class="nav nav-pills">
-          {% if user.username %}
-				      <li><p style="padding-top: 15px">Hello, {{user.username}}<p></li>
+        <ul class="nav mb-2 justify-content-center mb-md-0">
+          {% if user.is_authenticated %}
+              <div class="dropdown">
+                <button class="btn btn-primamry text-white dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  Hello, {{user.username}}
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li><a class="dropdown-item" href="{% url 'edit_profile' %}">Edit Settings</a></li>
+                  <li><a class="dropdown-item" href="{% url 'show_profile_page' user.profile.id %}">Show Profile</a></li>
+                  <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+                </ul>
+              </div>
 					    <li><a href="{% url 'logout' %}" class="nav-link px-2 text-white"><i class="bi bi-box-arrow-in-right"></i> Logout</a></li>
 			      {% else %}
 			        <li><a href="{% url 'register' %}" class="nav-link px-2 text-white"><i class="bi bi-person-fill-add"></i> Register</a></li>
@@ -49,8 +59,9 @@
 {% block content%}
 {% endblock  %}
 </div>
-<div class="container mt-auto">
-  <footer class="pt-5">
+<div class=" mt-auto">
+<hr>
+  <footer class="container pt-5">
     <div class="row">
       <div class="col-6 col-md-2 mb-3">
         <h5>Section</h5>
@@ -75,13 +86,12 @@
       </div>
 
       <div class="col-6 col-md-2 mb-3">
-        <h5>Section</h5>
+        <h5>Social</h5>
         <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Facebook</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Twitter</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Instagram</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Youtube</a></li>
         </ul>
       </div>
 
@@ -99,16 +109,10 @@
     </div>
 
     <div class="d-flex flex-column flex-sm-row justify-content-between  pt-4 border-top">
-      <p>© 2022 Company, Inc. All rights reserved.</p>
+      <p>© 2022 PBL6. All rights reserved.</p>
     </div>
   </footer>
 </div>
-<script>
-$(".navbar a").on("click", function(){
-      $(".navbar").find(".active").removeClass("active");
-      $(this).parent().addClass("active");
-    });
-</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
