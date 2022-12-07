@@ -41,12 +41,12 @@
                   Hello, {{user.username}}
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <li><a class="dropdown-item" href="{% url 'edit_profile' %}">Edit Settings</a></li>
-                  <li><a class="dropdown-item" href="{% url 'show_profile_page' user.id %}">Show Profile</a></li>
-                  <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+                  <li><a class="dropdown-item" href="{% url 'profile' user.id %}"><i class="bi bi-person-circle"></i> Show Profile</a></li>
+                  <li><a class="dropdown-item" href="{% url 'edit_profile' %}"><i class="bi bi-gear-fill"></i>Settings</a></li>
+                  <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="bi bi-box-arrow-in-right"></i> Logout</a></li>
                 </ul>
               </div>
-					    <li><a href="{% url 'logout' %}" class="nav-link px-2 text-white"><i class="bi bi-box-arrow-in-right"></i> Logout</a></li>
+					    <li><a  class="nav-link px-2 text-white"></li>
 			      {% else %}
 			        <li><a href="{% url 'register' %}" class="nav-link px-2 text-white"><i class="bi bi-person-fill-add"></i> Register</a></li>
 			        <li><a href="{% url 'login' %}" class="nav-link px-2 text-white"><i class="bi bi-box-arrow-in-left"></i>Login</a></li>
@@ -55,7 +55,7 @@
       </div>
     </div>
   </header>
-<div class="container mt-5">
+<div class="container mt-5 text-black">
 {% block content%}
 {% endblock  %}
 </div>

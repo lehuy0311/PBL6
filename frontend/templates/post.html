@@ -17,7 +17,7 @@
     <h5 class="card-title">{{post.title}}</h5>
     <h6 class="card-subtitle mb-2 text-muted">
         <img src="{% static 'images/default-avatar.png' %}" class="img-fluid rounded-start" width=50 alt="">
-        <a href="{% url 'show_profile_page' post.author.id %}" class="text-decoration-none text-muted">{{post.author.first_name}}{{post.author.last_name}}</a> - {{post.date}}
+        <a href="{% url 'profile' post.author.id %}" class="text-decoration-none text-muted">{{post.author.first_name}}{{post.author.last_name}}</a> - {{post.date}}
           {% if user.is_authenticated %}
             {% if user.id == post.author.id %}
               <a href="{% url 'update_post' post.pk %}"><i class="bi bi-pencil-fill"></i></a> 
@@ -28,7 +28,7 @@
     <p class="card-text">{{post.body|safe}}</p>
   </div>
   <div class="card-footer bg-transparent text-secondary">
-    <form action="{% url 'like_post' post.pk %}" method="POST" style="display: inline;">
+    <form action="{% url 'like_post' post.pk %}" method="POST" style="display: inline; margin-right:20px">
       {% csrf_token %}
       {% if user.is_authenticated %}
         <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-link {% if liked %}text-danger {% else %} text-secondary{% endif %} btn-sm"><i class="bi bi-heart-fill"></i></button>
@@ -39,22 +39,24 @@
     </form>   
     <strong> 
     <i class="bi bi-chat-fill"></i>
-    
     Comment {% if comments %}{{ object.number_of_comments }}{%else%}0{% endif %}
     </strong>
   </div>
 </div>
-<h2>Leave your comment!</h2>
+<br>
 <div id="comments_section">
   {% if comments %}
+  <h5>
   <strong class="text-secondary">{{ object.number_of_comments }} Comment{{ object.number_of_comments|pluralize }}</strong>
-  <hr>
+  </h5>
   <ul class="list-group">
     {% for comment in comments %}
     <li class="list-group-item">           
      <div>
         <span>
-          <strong class="text-info">{{ comment.author }} </strong>
+          <a href="{% url 'profile' comment.author.id %}" class="text-decoration-none text-muted">
+            <strong class="text-info">{{post.author.first_name}}{{post.author.last_name}}</strong>
+          </a>
           <small class="text-muted">{{ comment.date }}</small>
         </span>
         <p>
@@ -69,17 +71,18 @@
   {% endif %}
   <br/>
   {% if user.is_authenticated %}
-  <form action="{% url 'post' post.id %}" method="POST">
+  <div class="form-group">
+  <form action="{% url 'post' post.id %}" method="POST" >
     {% csrf_token %}
-    <div class="form-group">
-      <p><label>Comment: </label></p>
+      <h5>Leave your comment!</h5>
+      <label>Comment: </label>
       {{ comment_form.body }}
       <br/>
-      <button class="btn btn-info" type="submit">Add comment <i class="fas fa-comments"></i></button>
-    </div>
+      <button class="btn btn-primary" type="submit">Add comment <i class="fas fa-comments"></i></button>
   </form>
+  </div>
   {% else %}
-  <a class="btn btn-outline-info" href="{% url 'login' %}?next={{request.path}}">Log in to add a comment!</a><br>
+  <a class="btn btn-primary" href="{% url 'login' %}?next={{request.path}}">Log in to add a comment!</a><br>
   {% endif %}
 </div>
 </div>
