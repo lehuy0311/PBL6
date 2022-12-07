@@ -1,8 +1,7 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect
-from django.views.generic.edit import FormMixin
+from django.http import HttpResponseRedirect
 from .forms import uploadform, PostForm, SignUpForm, EditProfileForm, PasswordChangingForm, CommentForm
-from .models import History, Post,Category, Profile,Comment
+from .models import History, Post,Category,Comment
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 import pytesseract    # ======= > Add
 from PIL import Image
@@ -10,23 +9,14 @@ from django.core.files.storage import FileSystemStorage
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import PasswordChangeView
+from django.contrib.auth.models import User
+
 
 
 # pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
-# def index(request):
-#     return render(request, 'home.html')
-
 
 def error(request):
     return render(request, 'error.html')
-
-
-def history(request, pk):
-    if request.user.is_authenticated:
-        HttpResponseRedirect('login')
-    return render(request, 'history.html')
-
-
 
 class HistoryListView(ListView):
     def get_queryset(self):
@@ -157,12 +147,12 @@ def password_success(request):
     return render(request, 'password_success.html')
 
 class ShowProfilePageView(DetailView):
-    model = Profile
+    model = User
     template_name = 'user_profile.html'
 
     def get_context_data(self, *arg, **kwargs):
         context = super(ShowProfilePageView, self).get_context_data(*arg, **kwargs)
-        page_user = get_object_or_404(Profile, id=self.kwargs['pk'])
+        page_user = get_object_or_404(User, id=self.kwargs['pk'])
         context['page_user'] = page_user
 
         return context

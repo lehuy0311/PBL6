@@ -4,14 +4,6 @@ from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
 # Create your models here.
 
-class Profile(models.Model):
-    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-    bio = models.TextField()
-    image_pic = models.ImageField(blank=True, null=True, upload_to='images/profile/')
-
-    def __str__(self):
-        return str(self.user)
-
 class Category(models.Model):
     name = models.CharField(max_length=255)
 

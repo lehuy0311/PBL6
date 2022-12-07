@@ -12,47 +12,38 @@
 {% endfor %}
 </div>
 <div class="col-8">
-<h1>{{post.title}}</h1>
-<small>
-    {% if post.author.profile.profile_pic.url %}
-      <img src="{{post.author.profile.profile_pic.url}}" class="img-fluid rounded-start" width=50 alt="">
-    {% else %}
-      <img src="{% static 'images/default-avatar.png' %}" class="img-fluid rounded-start" width=50 alt="">
-    {% endif %}
-    <a href="{% url 'show_profile_page' post.author.profile.id %}">{{post.author.first_name}}{{post.author.last_name}}</a> - {{post.date}} - 
-    {% if user.is_authenticated %}
-    {% if user.id == post.author.id %}
-        <a href="{% url 'update_post' post.pk %}"><i class="bi bi-pencil-fill"></i></a> 
-        <a href="{% url 'delete_post' post.pk %}"><i class="bi bi-trash-fill"></i></a> 
-    {% endif %}
-    {% endif %}
-</small>
-
-<br/><hr/>
-{{post.body|safe}}
-<br/><hr/>
-
-
-<form action="{% url 'like_post' post.pk %}" method="POST">
-    {% csrf_token %}
-    {% if user.is_authenticated %}
-        {% if liked %}
-            <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-danger btn-sm">
-        {% else %} 
-            <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-secondary btn-sm">
-        {% endif %}
-                <i class="bi bi-heart-fill"></i>
-            </button>
-    {% else %}
-        <small><a href="{% url 'login' %}">Login</a> to like </small>
-    {% endif %}
-         {{total_likes}} Likes
-
-</form>
-
-<br/> <br/>
-<br/>
-<br/>
+  <div class="card">
+  <div class="card-body">
+    <h5 class="card-title">{{post.title}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">
+        <img src="{% static 'images/default-avatar.png' %}" class="img-fluid rounded-start" width=50 alt="">
+        <a href="{% url 'show_profile_page' post.author.id %}" class="text-decoration-none text-muted">{{post.author.first_name}}{{post.author.last_name}}</a> - {{post.date}}
+          {% if user.is_authenticated %}
+            {% if user.id == post.author.id %}
+              <a href="{% url 'update_post' post.pk %}"><i class="bi bi-pencil-fill"></i></a> 
+              <a href="{% url 'delete_post' post.pk %}"><i class="bi bi-trash-fill"></i></a> 
+            {% endif %}
+          {% endif %}
+      </h6>
+    <p class="card-text">{{post.body|safe}}</p>
+  </div>
+  <div class="card-footer bg-transparent text-secondary">
+    <form action="{% url 'like_post' post.pk %}" method="POST" style="display: inline;">
+      {% csrf_token %}
+      {% if user.is_authenticated %}
+        <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-link {% if liked %}text-danger {% else %} text-secondary{% endif %} btn-sm"><i class="bi bi-heart-fill"></i></button>
+      {% else %}
+        <i class="bi bi-heart-fill">
+      {% endif %}
+      <strong>  Favorite {{total_likes}} </strong>
+    </form>   
+    <strong> 
+    <i class="bi bi-chat-fill"></i>
+    
+    Comment {% if comments %}{{ object.number_of_comments }}{%else%}0{% endif %}
+    </strong>
+  </div>
+</div>
 <h2>Leave your comment!</h2>
 <div id="comments_section">
   {% if comments %}
