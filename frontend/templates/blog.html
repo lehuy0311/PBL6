@@ -12,10 +12,10 @@
 </div>
 <div class="list-group col-8">
     {% if user.is_authenticated %}
-        <a href="{% url 'add_post' %}" class="btn btn-primary">+ Add Post</a>  
+        <a href="{% url 'add_post' %}" class="btn btn-success">+ Add Post</a>  
     {% endif %}
 {% for post in Posts %}
-    <li class="list-group-item my-2">
+    <li class="list-group-item">
         <a href="{% url 'post' post.pk %}" class="text-decoration-none h3 text-black"> {{post.title}}</a>
         <br/>
         {{post.author}} - {{post.date}} -

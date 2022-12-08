@@ -9,19 +9,31 @@
 <div class="card mb-3">
   <div class="row g-0">
     <div class="col-md-4">
-    {% if page_user.profile_pic.url %}
-      <img src="{{page_user.profile_pic.url}}" class="img-fluid rounded-start" alt="">
-    {% else %}
       <img src="{% static 'images/default-avatar.png' %}" class="img-fluid rounded-start" width=120 alt="">
-    {% endif %}
     </div>
     <div class="col-md-8">
       <div class="card-body">
-      <h5 class="card-title">{{page_user.user.first_name}}{{page_user.user.last_name}}</a></h5>
-        <p class="card-text">{{page_user.bio}}</p>
-        
+      <h5 class="card-title">{{page_user.first_name}}{{page_user.last_name}}</h5>        
       </div>
     </div>
   </div>
+  
+
 </div>
+<div class="list-group col-8">
+{% for post in page_user.posts.all %}
+    <li class="list-group-item my-2">
+        <a href="{% url 'post' post.pk %}" class="text-decoration-none h3 text-black"> {{post.title}}</a>
+        <br/>
+        {{post.author}} - {{post.date}} -
+        {% if user.is_authenticated %}
+        {% if user.id == post.author.id %}
+            <a href="{% url 'update_post' post.pk %}"><i class="bi bi-pencil-fill"></i></a> 
+            <a href="{% url 'delete_post' post.pk %}"><i class="bi bi-trash-fill"></i></a>  
+        {% endif %}
+        {% endif %}
+       
+        </br>
+    {{post.body|slice:":200"|safe}}</li>
+{% endfor %}
 {% endblock  %}
