@@ -21,9 +21,13 @@
     padding: 20px;
     margin-bottom: 20px;
     font-size: 18px;
+
+.image_input{
+    display: flex;
+}
 }
 </style>
-    <form method="post" enctype='multipart/form-data'>
+    <form class="image_input" method="post" enctype='multipart/form-data'>
         {% csrf_token %}
         {{ form.as_p }}
         <div class="row mb-3">

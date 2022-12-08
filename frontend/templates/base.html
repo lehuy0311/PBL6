@@ -63,29 +63,123 @@
 <hr>
   <footer class="container pt-5">
     <div class="row">
-      <div class="col-6 col-md-2 mb-3">
-        <h5>Section</h5>
-        <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
-        </ul>
+      <div class="col-9 col-md-2 mb-3">
+        <h5>Author</h5>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style>
+          img{
+            padding: 20px;
+          }
+
+          .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            max-width: 300px;
+            margin: auto;
+            text-align: center;
+            font-family: arial;
+          }
+          
+          .title {
+            color: grey;
+            font-size: 18px;
+          }
+          
+          button {
+            border: none;
+            outline: 0;
+            display: inline-block;
+            padding: 8px;
+            color: white;
+            background-color: #000;
+            text-align: center;
+            cursor: pointer;
+            width: 100%;
+            font-size: 18px;
+          }
+          
+          a {
+            text-decoration: none;
+            font-size: 22px;
+            color: black;
+          }
+          
+          button:hover, a:hover {
+            opacity: 0.7;
+          }
+          </style>
+        <div class="card">
+          <img src="{% static 'images/default-avatar.png' %}" alt="Huy さん" style="width:100%"/>
+          <h6>Phan Quang Linh</h6>
+          <p class="title">　学生, 専門：IT</p>
+          <p>  University of Science and Technology</p>
+          <a href="#"><i class="fa fa-dribbble"></i></a>
+          <a href="#"><i class="fa fa-twitter"></i></a>
+          <a href="#"><i class="fa fa-linkedin"></i></a>
+          <a href="#"><i class="fa fa-facebook"></i></a>
+          <p><button>Contact</button></p>
+
+          
+        </div>
       </div>
 
-      <div class="col-6 col-md-2 mb-3">
-        <h5>Section</h5>
-        <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
-        </ul>
+      <div class="col-9 col-md-2 mb-3">
+        <h5>Author</h5>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style>
+          img{
+            padding: 20px;
+          }
+
+          .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            max-width: 300px;
+            margin: auto;
+            text-align: center;
+            font-family: arial;
+          }
+          
+          .title {
+            color: grey;
+            font-size: 18px;
+          }
+          
+          button {
+            border: none;
+            outline: 0;
+            display: inline-block;
+            padding: 8px;
+            color: white;
+            background-color: #000;
+            text-align: center;
+            cursor: pointer;
+            width: 100%;
+            font-size: 18px;
+          }
+          
+          a {
+            text-decoration: none;
+            font-size: 22px;
+            color: black;
+          }
+          
+          button:hover, a:hover {
+            opacity: 0.7;
+          }
+          </style>
+        <div class="card">
+          <img src="{% static 'images/default-avatar.png' %}" alt="Huy さん" style="width:100%"/>
+          <h6>Huynh Le Huy</h6>
+          <p class="title">　学生, 専門：IT</p>
+          <p>  University of Science and Technology</p>
+          <a href="#"><i class="fa fa-dribbble"></i></a>
+          <a href="#"><i class="fa fa-twitter"></i></a>
+          <a href="#"><i class="fa fa-linkedin"></i></a>
+          <a href="#"><i class="fa fa-facebook"></i></a>
+          <p><button>Contact</button></p>
+        </div>
       </div>
 
-      <div class="col-6 col-md-2 mb-3">
+      {% comment %} <div class="col-6 col-md-2 mb-3">
         <h5>Social</h5>
         <ul class="nav flex-column">
           <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Facebook</a></li>
@@ -93,7 +187,7 @@
           <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Instagram</a></li>
           <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Youtube</a></li>
         </ul>
-      </div>
+      </div> {% endcomment %}
 
       <div class="col-md-5 offset-md-1 mb-3">
         <form>
