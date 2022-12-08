@@ -6,7 +6,7 @@
 
 .selected-image {
     height: 400px;
-    width: 500px;
+    width: 600px;
     border: 1px solid gray;
     border-radius: 5px;
     margin-bottom: 15px;
@@ -16,18 +16,14 @@
     overflow-y: scroll;
     border: 1px solid gray;
     border-radius: 5px;
-    width: 500px;
+    width: 600px;
     height: 400px;
     padding: 20px;
     margin-bottom: 20px;
     font-size: 18px;
-
-.image_input{
-    display: flex;
-}
 }
 </style>
-    <form class="image_input" method="post" enctype='multipart/form-data'>
+    <form method="post" enctype='multipart/form-data'>
         {% csrf_token %}
         {{ form.as_p }}
         <div class="row mb-3">
