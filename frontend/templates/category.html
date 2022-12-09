@@ -3,6 +3,7 @@
 {% block  title%}{{cats}}{% endblock  %}
 
 {% block content%}
+<div class="container my-5">
 <div class="row">
 <div class="list-group col-4">
     <a class="list-group-item" href="{% url 'blog'  %}">All</a>
@@ -36,5 +37,6 @@
 {% if page_obj.has_next %}
     <a href="{{request.path}}?page={{page_obj.next_page_number}}">Next</a>
 {% endif %}
+</div>
 </div>
 {% endblock  %}

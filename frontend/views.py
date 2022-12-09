@@ -48,7 +48,7 @@ def home(request):
     return render(request, 'home.html', {'form': form})
 
 class UserRegisterView(CreateView):
-    form_class = UserCreationForm
+    form_class = SignUpForm
     template_name = "register.html"
     success_url = reverse_lazy('login')
 
@@ -113,10 +113,6 @@ class DeletePostView(DeleteView):
     context_object_name = 'post'
     success_url = reverse_lazy('blog')
 
-class UserRegisterView(CreateView):
-    form_class = SignUpForm
-    template_name = 'register.html'
-    success_url = reverse_lazy('login')
 
 class UserEditView(UpdateView):
     form_class = EditProfileForm
