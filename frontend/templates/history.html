@@ -4,7 +4,9 @@
 
 {% block content%}
 {% if user.is_authenticated %}
- <table class="table">
+<div class="container my-5">
+  <div class="card p-3 border-dark">
+  <table class="table">
     <thead>
       <tr>
         <th>Text</th>
@@ -17,11 +19,9 @@
         <td>{{history.body|safe}}</td>
         <td>{{history.date}}</td>
       </tr>
-      {% endfor %}
-
+    {% endfor %}
     </tbody>
   </table>
-
 <br>
 {% if page_obj.has_previous %}
     <a href="{{request.path}}?page={{page_obj.previous_page_number}}">Back</a>
@@ -29,5 +29,7 @@
 {% if page_obj.has_next %}
     <a href="{{request.path}}?page={{page_obj.next_page_number}}">Next</a>
 {% endif %}
+</div>
+</div>
 {% endif %}
 {% endblock  %}
