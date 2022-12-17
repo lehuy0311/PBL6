@@ -5,7 +5,7 @@
 {% block content%}
 {% if user.is_authenticated %}
 <div class="container my-5">
-<div class="card p-3 border-dark">
+<div class="card p-3 border-dark" >
 <legend class="border-bottom mb-4">Add Post</legend>
     <form method="POST">
         {% csrf_token %}

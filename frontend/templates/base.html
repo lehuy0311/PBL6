@@ -18,7 +18,7 @@ body {
 }
 </style>
 <body class="d-flex flex-column h-100">
-  <header class="p-2 bg-primary text-white">
+  <header class="p-2 text-white" style="background-color:#004274;">
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
         <a href="{% url 'home' %}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
@@ -63,14 +63,13 @@ body {
         <div class="card mb-3 text-center text-black">
           <div class="row g-0">
             <div class="col-sm-4">
-              <img src="{% static 'images/default-avatar.png' %}" class="img-fluid rounded-start w-100" alt="">
+              <img src="{% static 'images/cat.jpg' %}" class="img-fluid rounded-start w-100" alt="">
             </div>
             <div class="col-sm-8">
-              <div class="card-body">
-                <h5 class="card-title">Phan Quang Linh</h5>
+              <div class="card-body py-0">
+                <h5 class="card-title mt-2">Phan Quang Linh</h5>
                 <p class="card-text">学生, 専門:IT<br>
                 <small class="text-muted">DUT</small>
-                <br>qq
                 </p>
               </div>
             </div>
@@ -89,14 +88,13 @@ body {
         <div class="card mb-3 text-center text-black">
           <div class="row g-0">
             <div class="col-sm-4">
-              <img src="{% static 'images/default-avatar.png' %}" class="img-fluid rounded-start w-100" alt="">
+              <img src="{% static 'images/huy1.jpg' %}" class="img-fluid rounded-start w-100" alt="">
             </div>
             <div class="col-sm-8">
-              <div class="card-body">
-                <h5 class="card-title">Huynh Le Huy</h5>
+              <div class="card-body py-0">
+                <h5 class="card-title mt-2">Huynh Le Huy</h5>
                 <p class="card-text">学生, 専門:IT<br>
                 <small class="text-muted">DUT</small>
-                <br>qq
                 </p>
               </div>
             </div>
@@ -131,6 +129,9 @@ body {
     </div>
   </footer>
 </div>
+<script>window.CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/';</script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js" integrity="sha512-i9cEfJwUwViEPFKdC1enz4ZRGBj8YQo6QByFTF92YXHi7waCqyexvRD75S5NVTsSiTv7rKWqG9Y5eFxmRsOn0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>

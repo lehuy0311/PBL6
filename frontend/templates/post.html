@@ -21,8 +21,8 @@
         <a href="{% url 'profile' post.author.id %}" class="text-decoration-none text-muted">{{post.author.first_name}}{{post.author.last_name}}</a> - {{post.date}}
           {% if user.is_authenticated %}
             {% if user.id == post.author.id %}
-              <a href="{% url 'update_post' post.pk %}"><i class="bi bi-pencil-fill"></i></a> 
-              <a href="{% url 'delete_post' post.pk %}"><i class="bi bi-trash-fill"></i></a> 
+              <a href="{% url 'update_post' post.pk %}"><i class="bi bi-pencil-fill"></i></a>
+              <a href="{% url 'delete_post' post.pk %}"><i class="bi bi-trash-fill"></i></a>
             {% endif %}
           {% endif %}
       </h6>
@@ -34,11 +34,11 @@
       {% if user.is_authenticated %}
         <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-link {% if liked %}text-danger {% else %} text-secondary{% endif %} btn-sm"><i class="bi bi-heart-fill"></i></button>
       {% else %}
-        <i class="bi bi-heart-fill">
+        <i class="bi bi-heart-fill"></i>
       {% endif %}
       <strong>  Favorite {{total_likes}} </strong>
-    </form>   
-    <strong> 
+    </form>
+    <strong>
     <i class="bi bi-chat-fill"></i>
     Comment {% if comments %}{{ object.number_of_comments }}{%else%}0{% endif %}
     </strong>
@@ -52,7 +52,7 @@
   </h5>
   <ul class="list-group">
     {% for comment in comments %}
-    <li class="list-group-item">           
+    <li class="list-group-item">
      <div>
         <span>
           <a href="{% url 'profile' comment.author.id %}" class="text-decoration-none text-muted">
